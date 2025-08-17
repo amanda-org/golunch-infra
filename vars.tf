@@ -12,22 +12,31 @@ variable "cidr_vpc" {
 
 variable "tags" {
   default = {
-    Name = "golucnh-terraform-amanda"
+    Name = "golunch-terraform-amanda"
   }
 }
 
-variable "principal_arn" {
+variable "account" {
   type        = string
-  description = "ARN do IAM Role que terá acesso ao cluster EKS"
-  default     = "arn:aws:iam::509689628129:role/voclabs"
+  description = "Conta logada no AWS Academy"
 }
+
+locals {
+  principal_arn = "arn:aws:iam::${var.account}:role/voclabs"
+  lab_role      = "arn:aws:iam::${var.account}:role/LabRole"
+}
+
+output "principal_arn" {
+  value = local.principal_arn
+}
+
+output "lab_role" {
+  value = local.lab_role
+}
+
 
 variable "policy_arn" {
   default = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-}
-
-variable "labRole" {
-  default = "arn:aws:iam::509689628129:role/LabRole"
 }
 
 variable "accessConfig" {
