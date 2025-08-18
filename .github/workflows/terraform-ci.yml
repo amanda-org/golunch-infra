@@ -28,8 +28,11 @@ jobs:
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
 
+      - name: Ensure backend bucket exists
+        run: ./create_backend_bucket.sh
+
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -reconfigure
 
       - name: Terraform Plan
         run: terraform plan -input=false
