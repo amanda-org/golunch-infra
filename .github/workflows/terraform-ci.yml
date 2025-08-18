@@ -42,4 +42,4 @@ jobs:
         run: terraform init -reconfigure
 
       - name: Terraform Plan
-        run: terraform plan -input=false
+        run: terraform plan -input=false -var="account=${{ env.account_id }}"
