@@ -31,6 +31,13 @@ jobs:
       - name: Ensure backend bucket exists
         run: ./create_backend_bucket.sh
 
+      - name: Get AWS Account ID
+        id: aws_account
+        run: |
+          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+          echo "Account ID = $ACCOUNT_ID"
+          echo "account_id=$ACCOUNT_ID" >> $GITHUB_ENV
+
       - name: Terraform Init
         run: terraform init -reconfigure
 
