@@ -17,7 +17,7 @@ $ terraform apply
 ```
 ### Vídeo
 
-- Ambiente zerado na AWS
+- Ambiente zerado na AWS Academy
 - Criar uma nova branch
 - Rodar o script xpto para criar o bucket do backend
 - Fazer alguma alteração na infra
