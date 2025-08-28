@@ -14,7 +14,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Configura credenciais AWS (com sessão, se for AWS Academy)
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -31,25 +30,23 @@ jobs:
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
 
-      # Garante que o bucket do backend existe
       - name: Ensure backend bucket exists
         run: ./create_backend_bucket.sh
 
-      # Recupera account ID da AWS
+      - name: Excluding existing secrets
+        run: ./delete_secrets.sh
+
       - name: Get AWS Account ID
         id: aws_account
         run: |
           ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
           echo "account_id=$ACCOUNT_ID" >> $GITHUB_ENV
 
-      # Inicializa o backend
       - name: Terraform Init
         run: terraform init -reconfigure
 
-      # Valida os arquivos
       - name: Terraform Validate
         run: terraform validate
 
-      # Aplica as mudanças
       - name: Terraform Apply
         run: terraform apply -var="account=${{ env.account_id }}" -auto-approve
