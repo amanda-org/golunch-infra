@@ -1,3 +1,3 @@
-resource "aws_ecr_repository" "golunch" {
-  name = "golunch"
-}
+# resource "aws_ecr_repository" "golunch" {
+#   name = "golunch"
+# }
