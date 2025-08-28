@@ -9,8 +9,8 @@
 # }
 
 resource "aws_secretsmanager_secret" "golunch_s3_images" {
-  name                    = "golunch/s3-uri-1"
-  description             = "URL pública do bucket S3 para armazenar imagens"
+  name        = "golunch/s3-uri-1"
+  description = "URL pública do bucket S3 para armazenar imagens"
 }
 
 resource "aws_secretsmanager_secret_version" "golunch_s3_uri" {
