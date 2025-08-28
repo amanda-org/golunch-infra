@@ -3,8 +3,7 @@ resource "aws_s3_bucket" "images" {
 }
 
 resource "aws_s3_bucket_public_access_block" "public" {
-  bucket = aws_s3_bucket.images.id
-
+  bucket                  = aws_s3_bucket.images.id
   block_public_acls       = false
   block_public_policy     = false
   ignore_public_acls      = false
@@ -25,4 +24,6 @@ resource "aws_s3_bucket_policy" "public_policy" {
       }
     ]
   })
+
+  depends_on = [aws_s3_bucket_public_access_block.public]
 }
